@@ -44,47 +44,35 @@ def part_one(input):
             unsafeReports = unsafeReports+1
     print(1000-unsafeReports)
 
+def check_safe(values):
+    isSafe=True
+    difs = []
+
+    for index in range(0, len(values)-1):
+        difs.append(int(values[index])-int(values[index+1]))
+
+    print(difs)
+    direction = difs[0]
+    unsafeCount = 0
+    for dif in difs: 
+        if dif > 3 or dif < -3 or dif ==0:
+            isSafe = False
+        if direction > 0 and dif < 0:
+            isSafe = False
+        if direction < 0 and dif > 0:
+            isSafe = False
+    return isSafe
+
 def part_two(input):
     file = open(input, 'r')
     reports = file.readlines()
     unsafeReports = 0
     for report in reports:
         values = report.strip().split(" ")
-        isSafe=True
-        difs = []
-
-        for index in range(0, len(values)-1):
-            difs.append(int(values[index])-int(values[index+1]))
-
-        direction = difs[0]
-        unsafeLevels = 0
-        for dif in difs: 
-            if dif > 3 or dif < -3 or dif ==0:
-
-                # isSafe = False
-                unsafeLevels = unsafeLevels +1
-                # print(f"difference too great: {dif}")
         
-            elif direction > 0 and dif < 0:
-                # print("inside positive dif wrong direction")
-                # isSafe = False
-                unsafeLevels = unsafeLevels +1
-                # print(f"direction wrong: {direction}, dif: {dif}")
-                
-            elif direction < 0 and dif > 0:
-                # print("inside positive dif wrong direction")
-                # isSafe = False
-                unsafeLevels = unsafeLevels +1
-                # print(dif)
-                # print(f"direction wrong: {direction}, dif: {dif}")
-        print(f"unsafe levels: {unsafeLevels}")
-        if unsafeLevels > 1:
-            isSafe = False
-        # print(f"isSafe: {isSafe}")    
-        if isSafe == True:
-            print(values)
-        if isSafe == False: 
-            unsafeReports = unsafeReports+1
+        if check_safe(values) == False: 
+            unsafeReports = unsafeReports + 1
+
     print(6-unsafeReports)    
 
 part_two('test-input.txt')
