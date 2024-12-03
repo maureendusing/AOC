@@ -51,10 +51,9 @@ def check_safe(values):
     for index in range(0, len(values)-1):
         difs.append(int(values[index])-int(values[index+1]))
 
-    print(difs)
     direction = difs[0]
-    unsafeCount = 0
-    for dif in difs: 
+
+    for dif in difs:
         if dif > 3 or dif < -3 or dif ==0:
             isSafe = False
         if direction > 0 and dif < 0:
@@ -66,13 +65,26 @@ def check_safe(values):
 def part_two(input):
     file = open(input, 'r')
     reports = file.readlines()
-    unsafeReports = 0
+    safeReports = 0
     for report in reports:
         values = report.strip().split(" ")
-        
-        if check_safe(values) == False: 
-            unsafeReports = unsafeReports + 1
+        # print(values)
+        #print(f"values:{values}")
+        isSafe=True
+        difs = []
+        if check_safe(values):
+            safeReports =safeReports + 1
+        else: 
+            for index in range(0,len(values)-1):
+                new_list = values
+                new_list[0:index:1]
+                print(new_list)
+                if check_safe(new_list):
+                    safeReports = safeReports + 1
+                    continue
 
-    print(6-unsafeReports)    
+
+       
+    print(safeReports)
 
 part_two('test-input.txt')
