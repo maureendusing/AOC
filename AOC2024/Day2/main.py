@@ -62,6 +62,13 @@ def check_safe(values):
             isSafe = False
     return isSafe
 
+def get_possibilities(failed_list):
+    permutations = []
+    for index in range(len(failed_list)):
+        new_possibility = failed_list[:index] + failed_list[index+1:]
+        permutations.append(new_possibility)
+            
+    return permutations
 def part_two(input):
     file = open(input, 'r')
     reports = file.readlines()
@@ -73,18 +80,17 @@ def part_two(input):
         isSafe=True
         difs = []
         if check_safe(values):
+            print(f'values: {values} are safe')
             safeReports =safeReports + 1
         else: 
-            for index in range(0,len(values)-1):
-                new_list = values
-                new_list[0:index:1]
-                print(new_list)
-                if check_safe(new_list):
-                    safeReports = safeReports + 1
-                    continue
-
+            possibilities = get_possibilities(values)
+            print(possibilities)
+            for possible in possibilities: 
+                if check_safe(possible):
+                    safeReports = safeReports +1
+                    break
 
        
     print(safeReports)
 
-part_two('test-input.txt')
+part_two('input.txt')
