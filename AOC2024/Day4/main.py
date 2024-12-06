@@ -1,6 +1,8 @@
 def part_one(input):
     file = open(input, 'r')
     data = str(file.readlines())
+    print(data)
+
 
 def part_two(input):
     file = open(input, 'r')
