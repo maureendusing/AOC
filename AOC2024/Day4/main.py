@@ -111,6 +111,7 @@ def check_vertical_down(grid, index1, index2):
         return 0
     
 def check_diagonal_down_right(grid, index1, index2):
+    print(f'index1: {index1}, index2: {index2}')
     try:    
         letters = ["X", "M", "A", "S"]
         found = True
@@ -139,6 +140,32 @@ def find_neighbor(grid, index1, index2):
     # diagonal_down = grid[index1+1][index2-1]
     # vertical_down = grid[index1+1][index2]
     # diagonal_down_right = grid[index1+1][index2+1]
+
+    ##needs to be 4 - not
+    # print(f'diagonal_left_up: {check_diagonal_left_up(grid, index1, index2)}')
+
+    ##needs to be 2 
+    # print(f'vertical_up: {check_vertical_up(grid, index1, index2)}')
+
+    ##needs to be 4 - not
+    # print(f'check_diagonal_right_up: {check_vertical_up(grid, index1, index2)}')
+
+    ##needs to be 2 - not 
+    # print(f'check_horizontal_left: {check_horizontal_left(grid, index1, index2)}')
+
+    ##needs to be 3
+    # print(f'check_horizontal_right: {check_horizontal_right(grid, index1, index2)}')
+
+    ##needs to be 1
+    # print(f'check_diagonal_down_left: {check_diagonal_down_left(grid, index1, index2)}')
+
+    ##needs to be 1
+    # print(f'check_vertical_down: {check_vertical_down(grid, index1, index2)}')
+
+    ##needs to be 1 - not
+    ## why is it saying that index 2,2 is right? 
+    print(f'check_diagonal_down_right: {check_diagonal_down_right(grid, index1, index2)}')
+
     sum = check_diagonal_left_up(grid, index1, index2)+check_vertical_up(grid, index1, index2)+check_diagonal_right_up(grid, index1, index2)+check_horizontal_left(grid, index1, index2)+check_horizontal_right(grid, index1, index2)+check_diagonal_down_left(grid, index1, index2)+check_vertical_down(grid, index1, index2)+check_diagonal_down_right(grid, index1, index2)
     return sum
 
@@ -160,7 +187,9 @@ def part_one(input):
         for index_col in range(0, len(data)-1):
             # print(grid[index_row][index_col])
             if grid[index_row][index_col] == "X":
+                # print("X")
                 total = total + find_neighbor(grid, index_row, index_col)
+                # print(total)
 
     print(total)
 
