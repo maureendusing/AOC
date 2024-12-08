@@ -215,7 +215,99 @@ def part_one(input):
     # print(grid)
     
 
+def check_left_diagonal(grid, index1, index2):
+    try:    
+        letters = ["M", "A", "S"]
+        found = True
+        for count in range(-1,2):
+            if index1-count < 0 or index2 - count < 0:
+                found = False
+            else:
+                if grid[index1-count][index2-count] == letters[count+1]:
+                    continue
+                else: 
+                    found = False
+        if found == True:
+            print('left down found')
+            return 1
+        else:
+            return 0
+    except:
+        return 0
 
+def check_right_diagonal(grid, index1, index2):
+    try:    
+        letters = ["M", "A", "S"]
+        found = True
+        for count in range(-1,2):
+            if index1-count < 0:
+                found = False
+            else:
+                if grid[index1-count][index2+count] == letters[count+1]:
+                    continue
+                else: 
+                    found = False
+        if found == True:
+            print('right down found')
+            return 1
+        else:
+            return 0
+    except:
+        return 0
+  
+def check_left_up_diagonal(grid, index1, index2):
+    try:    
+        letters = ["S", "A", "M"]
+        found = True
+        for count in range(-1,2):
+            if index1-count < 0:
+                found = False
+            else:
+                if grid[index1-count][index2+count] == letters[count+1]:
+                    continue
+                else: 
+                    found = False
+        if found == True:
+            print('left up found')
+            return 1
+        else:
+            return 0
+    except:
+        return 0
+
+def check_right_up(grid, index1, index2):
+    try:    
+        letters = ["S", "A", "M"]
+        found = True
+        for count in range(-1,2):
+            if index1-count < 0 or index2 - count < 0:
+                found = False
+            else:
+                if grid[index1-count][index2-count] == letters[count+1]:
+                    continue
+                else: 
+                    found = False
+        if found == True:
+            print('right up found')
+            return 1
+        else:
+            return 0
+    except:
+        return 0
+
+def find_mas(grid, index1, index2):
+    if check_right_up(grid,index1,index2) == 1 and check_left_up_diagonal(grid,index1,index2)==1:
+        return 1
+    elif check_right_diagonal(grid,index1,index2) == 1 and check_left_diagonal(grid,index1,index2)==1:
+        return 1
+    elif check_right_diagonal(grid, index1, index2) ==1 and check_right_up(grid, index1,index2) == 1:
+        return 1
+    elif check_left_diagonal(grid, index1, index2) == 1 and check_left_up_diagonal(grid,index1,index2)==1:
+        return 1
+    else:
+        return 0
+    # sum = check_diagonal_left_up(grid, index1, index2)+check_vertical_up(grid, index1, index2)+check_diagonal_right_up(grid, index1, index2)+check_horizontal_left(grid, index1, index2)+check_horizontal_right(grid, index1, index2)+check_diagonal_down_left(grid, index1, index2)+check_vertical_down(grid, index1, index2)+check_diagonal_down_right(grid, index1, index2)
+    # return sum
 
 def part_two(input):
     file = open(input, 'r')
@@ -229,17 +321,15 @@ def part_two(input):
         grid.append(letters)
     for index_row in range(0, len(letters)):
         for index_col in range(0, len(data)):
-            if grid[index_row][index_col] == "X":
-                # print("X")
-                total = total + find_neighbor(grid, index_row, index_col)
-                # print(total)
+            if grid[index_row][index_col] == "A":
+                total = total + find_mas(grid, index_row, index_col)
 
     print(total)
 
 
 
-part_one('input.txt')
+# part_one('input.txt')
 # part_one('input.txt')
 
-part_two('test-input.txt')
-# part_two('input.txt')
+# part_two('test-input.txt')
+part_two('input.txt')
