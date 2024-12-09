@@ -3,7 +3,8 @@ def part_one(input):
     lines = file.readlines()
 
     for line in lines:
-        page_one, page_two = line.strip().split('|')
+        pages = line.strip().split('|')
+        print(f'pages: {pages}')
 
 
 part_one('test-input.txt')
