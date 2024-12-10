@@ -12,7 +12,7 @@
 
 
 def move_upward(grid, index1, index2):
-    if index1-1 > 0 and grid[index1-1][index2] != "#":
+    if grid[index1-1][index2] != "#":
         grid[index1-1][index2] = "X"
         move_upward(grid, index1-1, index2)
 
@@ -21,7 +21,7 @@ def move_upward(grid, index1, index2):
     if grid[index1-1][index2] == "#":
         print(f'turning right')
         move_right(grid, index1,index2)
-        print(f'HIT SOMETHING, grid: {grid}')
+        # print(f'HIT SOMETHING, grid: {grid}')
         
 def move_right(grid, index1,index2):
     try: 
@@ -31,7 +31,7 @@ def move_right(grid, index1,index2):
         if grid[index1][index2+1] == "#":
             print(f'turning down')
             move_down(grid, index1,index2)
-            print(f'HIT SOMETHING, grid: {grid}')
+            # print(f'HIT SOMETHING, grid: {grid}')
     except: 
         return "stop"
     
@@ -43,12 +43,12 @@ def move_down(grid, index1, index2):
         if grid[index1+1][index2] == "#":
             print(f'turning left')
             move_left(grid, index1,index2)
-            print(f'HIT SOMETHING, grid: {grid}')
+            # print(f'HIT SOMETHING, grid: {grid}')
     except: 
         return "stop"
     
 def move_left(grid, index1, index2):
-    if index2-1 > 0 and grid[index1][index2-1] !="#":
+    if grid[index1][index2-1] !="#":
         grid[index1][index2-1] = "X"
         move_left(grid, index1, index2-1)
 
@@ -57,7 +57,7 @@ def move_left(grid, index1, index2):
     if grid[index1][index2-1] == "#":
         print(f'turning up')
         move_upward(grid, index1,index2)
-        print(f'HIT SOMETHING, grid: {grid}')
+        # print(f'HIT SOMETHING, grid: {grid}')
 
 def part_one(input):
     file = open(input, 'r')
@@ -86,4 +86,4 @@ def part_one(input):
     print(f'count: {count}')
 
 #961 is too low 
-part_one('input.txt')
+part_one('test-input.txt')
