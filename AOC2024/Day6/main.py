@@ -12,10 +12,9 @@
 
 
 def move_upward(grid, index1, index2):
-    while index1-1 > 0 and grid[index1-1][index2] != "#":
+    if index1-1 > 0 and grid[index1-1][index2] != "#":
         grid[index1-1][index2] = "X"
-        index1=index1-1
-        move_upward(grid, index1, index2)
+        move_upward(grid, index1-1, index2)
 
     if index1-1 < 0: 
         return "stop"
@@ -25,10 +24,9 @@ def move_upward(grid, index1, index2):
         
 def move_right(grid, index1,index2):
     try: 
-        while grid[index1][index2+1] != "#":
+        if grid[index1][index2+1] != "#":
             grid[index1][index2+1] = "X"
-            index2=index2+1
-            move_right(grid, index1, index2)
+            move_right(grid, index1, index2+1)
         if grid[index1][index2+1] == "#":
             move_down(grid, index1,index2)
             print(f'HIT SOMETHING, grid: {grid}')
@@ -37,27 +35,25 @@ def move_right(grid, index1,index2):
     
 def move_down(grid, index1, index2):
     try:
-        while grid[index1+1][index2] != "#":
+        if grid[index1+1][index2] != "#":
             grid[index1+1][index2] = "X"
-            index1=index1+1
-            move_down(grid, index1, index2)
+            move_down(grid, index1+1, index2)
         if grid[index1+1][index2] == "#":
-            move_down(grid, index1,index2)
+            move_left(grid, index1,index2)
             print(f'HIT SOMETHING, grid: {grid}')
     except: 
         return "stop"
     
 def move_left(grid, index1, index2):
-    while index2-1 > 0 and grid[index1][index2-1] != "#":
+    if index2-1 > 0 and grid[index1][index2-1] !="#":
         grid[index1][index2-1] = "X"
-        index2=index2-1
-        move_upward(grid, index1, index2)
+        move_upward(grid, index1, index2-1)
 
-    if index1-1 < 0: 
-        return "stop"
-    if grid[index1-1][index2] == "#":
-        move_upward(grid, index1,index2)
-        print(f'HIT SOMETHING, grid: {grid}')
+        if index2-1 < 0: 
+            return "stop"
+        if grid[index1][index2-1] == "#":
+            move_upward(grid, index1,index2)
+            print(f'HIT SOMETHING, grid: {grid}')
 
 def part_one(input):
     file = open(input, 'r')
