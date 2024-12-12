@@ -12,12 +12,14 @@
 
 
 def move_upward(grid, index1, index2):
+    
+    if index1-1 < 0: 
+        return "stop"
+
     if grid[index1-1][index2] != "#":
         grid[index1-1][index2] = "X"
         move_upward(grid, index1-1, index2)
 
-    if index1-1 < 0: 
-        return "stop"
     if grid[index1-1][index2] == "#":
         print(f'turning right')
         move_right(grid, index1,index2)
@@ -44,16 +46,22 @@ def move_down(grid, index1, index2):
             print(f'turning left')
             move_left(grid, index1,index2)
             # print(f'HIT SOMETHING, grid: {grid}')
-    except: 
+    
+    except Exception as err: 
+        print(err)
+        print(f'value at stopped: {grid[index1+1][index2]}')
+        print(f'Stopped going down at {index1+1}, {index2}')
         return "stop"
     
 def move_left(grid, index1, index2):
+    if index2-1 < 0: 
+        return "stop"
+
     if grid[index1][index2-1] !="#":
         grid[index1][index2-1] = "X"
         move_left(grid, index1, index2-1)
 
-    if index2-1 < 0: 
-        return "stop"
+    
     if grid[index1][index2-1] == "#":
         print(f'turning up')
         move_upward(grid, index1,index2)
@@ -77,13 +85,19 @@ def part_one(input):
     
     move_upward(grid, starting_row_index, starting_col_index)
 
-    print(grid)
+    
     count = 0
     for index_row in range(0, len(letters)):
         for index_col in range(0, len(data)):
             if grid[index_row][index_col] == "X" or grid[index_row][index_col] == "^":
                 count = count + 1
+    for row in grid:
+        print("".join(map(str, row)))
+
+    
+    # print(f'grid: {grid}')
+
     print(f'count: {count}')
 
 #961 is too low 
-part_one('test-input.txt')
+part_one('input.txt')
