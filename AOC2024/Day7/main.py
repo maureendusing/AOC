@@ -9,6 +9,7 @@ def test_solution(current_solution, current_numbers):
     for index in range(0,len(current_numbers)-1):
         if total != current_solution: 
             ### This only works on the first iteration
+            ### will need to concurrently do multiple iterations to try all the combinations 
             if int(current_numbers[index])*int(current_numbers[index+1]) <= current_solution: 
                 total = total + int(current_numbers[index])*int(current_numbers[index+1])
             elif int(current_numbers[index])+int(current_numbers[index+1]) <= current_solution:
