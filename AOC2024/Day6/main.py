@@ -9,63 +9,59 @@
 ### move down until you hit # 
 ### move left until you hit # 
 ### move up until you hit # 
+import sys
 
+
+sys.setrecursionlimit(10000)
 
 def move_upward(grid, index1, index2):
-    
-    if index1-1 < 0: 
-        return "stop"
-
-    if grid[index1-1][index2] != "#":
+    while index1-1>=0 and grid[index1-1][index2] != "#":
         grid[index1-1][index2] = "X"
-        move_upward(grid, index1-1, index2)
+        index1=index1-1
 
     if grid[index1-1][index2] == "#":
         print(f'turning right')
         move_right(grid, index1,index2)
+
         # print(f'HIT SOMETHING, grid: {grid}')
+    
+    else: 
+        print('stopped going up off page')
         
 def move_right(grid, index1,index2):
-    try: 
-        if grid[index1][index2+1] != "#":
-            grid[index1][index2+1] = "X"
-            move_right(grid, index1, index2+1)
-        if grid[index1][index2+1] == "#":
-            print(f'turning down')
-            move_down(grid, index1,index2)
-            # print(f'HIT SOMETHING, grid: {grid}')
-    except: 
-        return "stop"
+    while index2<len(grid[0]) and grid[index1][index2+1] != "#": 
+        grid[index1][index2+1] = "X"
+        index2 = index2 + 1
+    if grid[index1][index2+1] == "#":
+        print(f'turning down')
+        move_down(grid, index1,index2)
+        # print(f'HIT SOMETHING, grid: {grid}')
+    else: 
+        print('stopped going right off page')
+
     
 def move_down(grid, index1, index2):
-    try:
-        if grid[index1+1][index2] != "#":
-            grid[index1+1][index2] = "X"
-            move_down(grid, index1+1, index2)
-        if grid[index1+1][index2] == "#":
-            print(f'turning left')
-            move_left(grid, index1,index2)
-            # print(f'HIT SOMETHING, grid: {grid}')
-    
-    except Exception as err: 
-        print(err)
-        print(f'value at stopped: {grid[index1+1][index2]}')
-        print(f'Stopped going down at {index1+1}, {index2}')
-        return "stop"
+    while index1 < len(grid[0]) and grid[index1+1][index2] != "#":
+        grid[index1+1][index2] = "X"
+        index1 = index1 + 1
+    if grid[index1+1][index2] == "#":
+        print(f'turning left')
+        move_left(grid, index1,index2)
+        # print(f'HIT SOMETHING, grid: {grid}')
+    else: 
+        print('stopped going down off page')
     
 def move_left(grid, index1, index2):
-    if index2-1 < 0: 
-        return "stop"
-
-    if grid[index1][index2-1] !="#":
+    while index2-1 >= 0 and grid[index1][index2-1] !="#":
         grid[index1][index2-1] = "X"
-        move_left(grid, index1, index2-1)
-
-    
+        index2=index2-1
+        
     if grid[index1][index2-1] == "#":
         print(f'turning up')
         move_upward(grid, index1,index2)
         # print(f'HIT SOMETHING, grid: {grid}')
+    else: 
+        print('stopped going left off page')
 
 def part_one(input):
     file = open(input, 'r')
