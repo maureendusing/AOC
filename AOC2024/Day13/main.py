@@ -13,24 +13,30 @@ def check_solutions_zero(button_a, button_b, prize):
     print(f'button_a: {button_a}, button_b: {button_b}, prize: {prize}')
     return a_button_pushes, b_button_pushes
 
+def reprocess(button_a, button_b, prize):
+    subtraction_variable = button_a[1]*button_b[0] - button_b[1]*button_a[0]
+    subtract_equals_to = (button_a[1])*prize[0] - (prize[1])*button_a[0]
+
+    b_button_pushes = subtract_equals_to/subtraction_variable
+
+
+    a_button_pushes = (prize[0] - button_b[0]*b_button_pushes)/button_a[0]
+        
+    print(f'a: {a_button_pushes}, b:{b_button_pushes}')
+    return a_button_pushes, b_button_pushes
+
+
 def process_systems_of_equations(button_a, button_b, prize):
     """doing this by solving for b"""
 
-    determinant=button_a[0]*button_b[1]-button_a[1]*button_b[0]
-    if determinant !=0:
 
-        subtraction_variable = button_a[1]*button_b[0] - button_b[1]*button_a[0]
-        subtract_equals_to = (button_a[1])*prize[0] - (prize[1])*button_a[0]
+    subtraction_variable = button_a[1]*button_b[0] - button_b[1]*button_a[0]
+    subtract_equals_to = (button_a[1])*prize[0] - (prize[1])*button_a[0]
 
-        b_button_pushes = subtract_equals_to/subtraction_variable
+    b_button_pushes = subtract_equals_to/subtraction_variable
 
 
-        a_button_pushes = (prize[0] - button_b[0]*b_button_pushes)/button_a[0]
-    if determinant == 0:
-        print('in if')
-        a_button_pushes,b_button_pushes =check_solutions_zero(button_a, button_b, prize)
-        # a_button_pushes = 0
-        # b_button_pushes = 0
+    a_button_pushes = (prize[0] - button_b[0]*b_button_pushes)/button_a[0]
         
     return a_button_pushes, b_button_pushes
 
@@ -75,8 +81,8 @@ def part_one(input):
 
         else: 
             button_a_pushes, button_b_pushes = process_systems_of_equations(button_a, button_b, prize)
-            # if calculate_total(button_a_pushes, button_b_pushes, prize) == 0:
-            #     print(f'didnt work {button_a}, {button_b}, {prize}')
+            if calculate_total(button_a_pushes, button_b_pushes, prize) == 0:
+                print(reprocess(button_a, button_b,prize))
             # print(f'a_button_pushes else block: {button_a_pushes}')
             tokens = tokens + calculate_total(button_a_pushes, button_b_pushes, prize)
             
